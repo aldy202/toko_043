@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -25,7 +26,19 @@ public class TokoController {
     Barang brg = new Barang();
     BarangJpaController brgJPA = new BarangJpaController();
     
-    @RequestMapping("/toko")
+    
+    @RequestMapping("/get_toko/{id}")
+    public String getBrng(@PathVariable("id") int id)
+    {
+        try{
+            brg = brgJPA.findBarang(id);
+            String result = brg.getId().toString()+"<br>"+brg.getNama()+"<br>"+brg.getJumlah().toString();
+            return result;
+            
+        }catch(Exception e){return "data tidak ada";}
+    }
+    
+    @RequestMapping("/tokoall")
     public List<Barang> getBarang()
     {
         List<Barang> brg = new ArrayList<Barang>();
@@ -44,6 +57,11 @@ public class TokoController {
             
         
     }
-    
+    @RequestMapping("/post_toko")
+    public String postBarang(@RequestBody Barang brg)
+    {
+       return "hasil";
+        
+    }
       
 }
