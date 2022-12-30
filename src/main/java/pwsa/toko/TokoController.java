@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author hp
  */
 @RestController
+@ResponseBody
 public class TokoController {
     
     //membuat object baru untuk memanggil class barang
@@ -47,13 +48,13 @@ public class TokoController {
     @GetMapping("/toko")
     public List<Barang> getBarang()//membuat method untuk menampilkan semua data
     {
-        List<Barang> brg = new ArrayList<Barang>();
-        return brgJPA.findBarangEntities();
+        List<Barang> brg = new ArrayList<Barang>();//menyimpan data kedalam array list
+        return brgJPA.findBarangEntities();//return semua nilai entity yg ada di barang
               
     }
     
     @DeleteMapping("/toko/{id}")
-    public String delBarang(@PathVariable("id") int id)        
+    public String delBarang(@PathVariable("id") int id)//membuat method untuk        
     {
         try{
             brgJPA.destroy(id);
