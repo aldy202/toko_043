@@ -7,11 +7,13 @@ package pwsa.toko;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -57,10 +59,26 @@ public class TokoController {
             
         
     }
-    @RequestMapping("/post_toko")
+    @RequestMapping(value = "/post_toko", method = RequestMethod.POST)
     public String postBarang(@RequestBody Barang brg)
     {
-       return "hasil";
+       try{
+           brgJPA.create(brg);
+           return "berhasil";
+       }catch(Exception e){return "data tidak berhasil di input";}
+        
+    }
+    @RequestMapping(value = "/put_toko/{id}", method = RequestMethod.PUT)
+    public String putBarang(@RequestBody Barang barag, @PathVariable("id") int id)
+    {
+        try
+        {
+            brg = brgJPA.findBarang(id);
+            barag.setId(id);
+            brgJPA.edit(barag);
+            return "berhasil";
+
+        }catch(Exception e){return "data tidak berhasil di edit";}
         
     }
       
