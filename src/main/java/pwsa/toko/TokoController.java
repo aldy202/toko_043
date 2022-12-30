@@ -48,18 +48,17 @@ public class TokoController {
     @GetMapping("/toko")
     public List<Barang> getBarang()//membuat method untuk menampilkan semua data
     {
-        List<Barang> brg = new ArrayList<Barang>();//menyimpan data kedalam array list
         return brgJPA.findBarangEntities();//return semua nilai entity yg ada di barang
               
     }
     
     @DeleteMapping("/toko/{id}")
-    public String delBarang(@PathVariable("id") int id)//membuat method untuk        
+    public String delBarang(@PathVariable("id") int id)//membuat method untuk delete data        
     {
         try{
-            brgJPA.destroy(id);
-            return "Data terhapus";
-        }catch (Exception e){return "data tidak ditemukan";}
+            brgJPA.destroy(id);//menghapus data berdasarkan id
+            return "Data terhapus";//menampilkan pesan jika data berhasil di hapus
+        }catch (Exception e){return "data tidak ditemukan";}//menampilkan pesan jika data tidak ditemukan
             
         
     }
@@ -77,7 +76,6 @@ public class TokoController {
     {
         try
         {
-            brg = brgJPA.findBarang(id);
             barag.setId(id);
             brgJPA.edit(barag);
             return "berhasil";
