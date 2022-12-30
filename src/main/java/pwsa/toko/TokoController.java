@@ -36,7 +36,7 @@ public class TokoController {
     @GetMapping("/toko/{id}")//menggunakan request mapping berdasarkan id
     public String getBrng(@PathVariable("id") int id)//membuat method untuk menampilkan data berdasarkan id
     {
-        try{//melakukan uji coba
+        try{
             brg = brgJPA.findBarang(id);//mencari id
             String result = brg.getId().toString()+"<br>"+brg.getNama()+"<br>"+brg.getJumlah().toString();//menampilkan data
             return result;//mengembalikan nilai result
@@ -53,8 +53,7 @@ public class TokoController {
     }
     
     @DeleteMapping("/toko/{id}")
-    public String delBarang(@PathVariable("id") int id)
-            
+    public String delBarang(@PathVariable("id") int id)        
     {
         try{
             brgJPA.destroy(id);
